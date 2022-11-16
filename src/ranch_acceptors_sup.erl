@@ -25,6 +25,7 @@ start_link(Ref, NbAcceptors, Transport, TransOpts, Protocol, ProtoOpts) ->
 	supervisor:start_link(?MODULE, [Ref, NbAcceptors, Transport, TransOpts, Protocol, ProtoOpts]).
 
 init([Ref, NbAcceptors, Transport, TransOpts, Protocol, ProtoOpts]) ->
+    io:format(user, "~nat=~s:~p:~p transport=~p transport_options=~p protocol=~p protocol_options=~p~n", [?MODULE_STRING, ?FUNCTION_NAME, ?LINE, Transport, TransOpts, Protocol, ProtoOpts]),
 	{ok, LSocket} = Transport:listen(TransOpts),
 	{ok, {_, Port}} = Transport:sockname(LSocket),
 	ranch_server:set_port(Ref, Port),
