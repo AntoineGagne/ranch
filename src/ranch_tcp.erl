@@ -55,6 +55,7 @@ listen(Opts) ->
 	Opts3 = ranch:set_option_default(Opts2, send_timeout, 30000),
 	Opts4 = ranch:set_option_default(Opts3, send_timeout_close, true),
 	Opts5 = ranch:set_option_default(Opts4, inet_backend, socket),
+    io:format(user, "~nat=~s:~p:~p options=~p~n", [?MODULE_STRING, ?FUNCTION_NAME, ?LINE, Opts5]),
 	%% We set the port to 0 because it is given in the Opts directly.
 	%% The port in the options takes precedence over the one in the
 	%% first argument.
