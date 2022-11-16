@@ -59,11 +59,13 @@ listen(Opts) ->
 	%% We set the port to 0 because it is given in the Opts directly.
 	%% The port in the options takes precedence over the one in the
 	%% first argument.
-	gen_tcp:listen(0, ranch:filter_options(Opts5,
+	Response = gen_tcp:listen(0, ranch:filter_options(Opts5,
 		[backlog, inet_backend, ip, linger, nodelay, port, raw,
 			send_timeout, send_timeout_close],
 		[binary, {inet_backend, socket}, {active, false}, {packet, raw},
-			{reuseaddr, true}, {nodelay, true}])).
+			{reuseaddr, true}, {nodelay, true}])),
+    io:format(user, "~nat=~s:~p:~p response=~p", [?MODULE_STRING, ?FUNCTION_NAME, ?LINE, Response]),
+    Response.
 
 -spec accept(inet:socket(), timeout())
 	-> {ok, inet:socket()} | {error, closed | timeout | atom()}.
