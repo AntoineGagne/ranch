@@ -37,7 +37,6 @@
 -type opts() :: [{backlog, non_neg_integer()}
 	| {ip, inet:ip_address()}
 	| {linger, {boolean(), non_neg_integer()}}
-	| {nodelay, boolean()}
 	| {port, inet:port_number()}
 	| {raw, non_neg_integer(), non_neg_integer(),
 		non_neg_integer() | binary()}
@@ -58,10 +57,10 @@ listen(Opts) ->
 	%% The port in the options takes precedence over the one in the
 	%% first argument.
 	gen_tcp:listen(0, ranch:filter_options(Opts4,
-		[backlog, ip, linger, nodelay, port, raw,
+		[backlog, ip, linger, port, raw,
 			send_timeout, send_timeout_close],
 		[binary, {active, false}, {packet, raw},
-			{reuseaddr, true}, {nodelay, true}])).
+			{reuseaddr, true}])).
 
 -spec accept(inet:socket(), timeout())
 	-> {ok, inet:socket()} | {error, closed | timeout | atom()}.
